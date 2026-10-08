@@ -31,8 +31,11 @@ Please delete options that are not relevant.
 - If web or mobile, screenshots will be very helpful in addition
 
 ## Screenshots & Recordings
-- [ ] Recording of the changes attached
-- [ ] Screenshots attached across different screens (e.g. mobile, tablet, desktop)
+<!-- Drag and drop into this section: a screen recording (.mp4 / .mov) and at least 2 screenshots across different screens. CI checks for them. -->
+
+**Recording:**
+
+**Screenshots:**
 
 | Screen | Before | After |
 | ------ | ------ | ----- |
@@ -41,18 +44,20 @@ Please delete options that are not relevant.
 | Desktop |       |       |
 
 ## Figma Designs
-- [ ] Figma design screenshots attached
-- [ ] Figma link added
+<!-- Paste the Figma link and drag and drop at least 1 screenshot of the design into this section. CI checks for them. -->
 
-**Figma link:** <!-- paste the Figma URL here -->
+**Figma link:**
+
+**Figma screenshots:**
 
 # Where is it documented?
 - List JIRA tickets
 
 ## Ready for Review
 > ⚠️ Open this PR as a **Draft**. Only mark it as **Ready for review** once every item below is checked.
+> Items marked 🤖 are ticked automatically by CI. Only tick the last one yourself.
 
-- [ ] All CI checks pass (build, lint, tests)
-- [ ] Recording and screenshots across different screens are attached
-- [ ] Figma design screenshots and link are attached
+- [ ] 🤖 All CI checks pass (build, lint, tests)
+- [ ] 🤖 Recording and screenshots across different screens are attached
+- [ ] 🤖 Figma design screenshots and link are attached
 - [ ] Self-reviewed the code and tested the changes locally
