@@ -1,4 +1,6 @@
-import { FormEvent, useState } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "@tanstack/react-form";
+import { MapPin, Mail, Phone } from "lucide-react";
 import "./ContactUs.css";
 
 const contactDetails = [
@@ -6,43 +8,92 @@ const contactDetails = [
     key: "location",
     title: "Our location",
     value: "Karen Nairobi Kenya",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 2.5a7.5 7.5 0 0 1 7.5 7.5c0 5.9-7.5 11.5-7.5 11.5S4.5 15.9 4.5 10A7.5 7.5 0 0 1 12 2.5Zm0 3.2a4.3 4.3 0 1 0 0 8.6 4.3 4.3 0 0 0 0-8.6Z" />
-      </svg>
-    ),
+    icon: <MapPin />,
   },
   {
     key: "email",
     title: "Email us",
-    value: "umucyo@gmail.com",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3.5 6.5A2.5 2.5 0 0 1 6 4h12a2.5 2.5 0 0 1 2.5 2.5v11A2.5 2.5 0 0 1 18 18H6a2.5 2.5 0 0 1-2.5-2.5zm1.8 1.2 7.7 5.3 7.7-5.3v-.1H5.3zm14.2 9.8V8.6l-6.8 4.7a1.4 1.4 0 0 1-1.7 0L5.3 8.6v8.9z" />
-      </svg>
-    ),
+    value: "umucyo22@gmail.com",
+    icon: <Mail />,
   },
   {
     key: "phone",
     title: "Call us",
-    value: "+254 7342345183",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M6.6 2.5h3l1.3 5.1-2.2 2.1a15.1 15.1 0 0 0 7.1 7.1l2.1-2.2 5.1 1.3v3a2.2 2.2 0 0 1-2.2 2.2A17.8 17.8 0 0 1 4.4 4.7 2.2 2.2 0 0 1 6.6 2.5Z" />
-      </svg>
-    ),
+    value: "+250 7342345183",
+    icon: <Phone />,
   },
 ];
 
-export function ContactUs() {
-  const [sent, setSent] = useState(false);
+const formspreeEndpoint =
+  import.meta.env.VITE_FORMSPREE_ENDPOINT || "https://formspree.io/f/xoejzgaq";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSent(true);
-    event.currentTarget.reset();
-    window.setTimeout(() => setSent(false), 2400);
-  }
+type ContactFormValues = {
+  name: string;
+  email: string;
+  message: string;
+};
+
+type FormspreeResponse = {
+  errors?: unknown[];
+};
+
+export function ContactUs() {
+  const [status, setStatus] = useState<
+    "idle" | "success" | "error" | "uncertain"
+  >("idle");
+
+  // Hide the success popup automatically after 3 seconds.
+  useEffect(() => {
+    if (status !== "success") {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setStatus("idle");
+    }, 3000);
+
+    return () => window.clearTimeout(timer);
+  }, [status]);
+
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    } satisfies ContactFormValues,
+
+    onSubmit: async ({ value }) => {
+      setStatus("idle");
+
+      try {
+        const response = await fetch(formspreeEndpoint, {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(value),
+        });
+
+        const payload = (await response
+          .json()
+          .catch(() => null)) as FormspreeResponse | null;
+
+        if (!response.ok || (payload?.errors?.length ?? 0) > 0) {
+          setStatus("error");
+          return;
+        }
+
+        // Formspree accepted the submission.
+        setStatus("success");
+        form.reset();
+      } catch {
+        // A network failure does not necessarily mean Formspree
+        // did not receive the message.
+        setStatus("uncertain");
+      }
+    },
+  });
 
   return (
     <section id="contact" className="contact-section">
@@ -56,6 +107,7 @@ export function ContactUs() {
                 <span className="contact-icon" aria-hidden="true">
                   {item.icon}
                 </span>
+
                 <div className="contact-copy">
                   <span className="contact-label">{item.title}</span>
                   <span className="contact-value">{item.value}</span>
@@ -65,45 +117,139 @@ export function ContactUs() {
           </div>
 
           <div className="contact-form-panel">
-            <form className="contact-form" onSubmit={handleSubmit}>
+            <form
+              className="contact-form"
+              onSubmit={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                void form.handleSubmit();
+              }}
+            >
               <label className="field">
-                <input
-                  type="text"
-                  placeholder="Full Name*"
-                  aria-label="Full Name"
-                  required
-                />
+                <form.Field
+                  name="name"
+                  validators={{
+                    onBlur: ({ value }) =>
+                      value.trim() ? undefined : "Full name is required",
+                  }}
+                >
+                  {(field) => (
+                    <input
+                      type="text"
+                      name={field.name}
+                      value={field.state.value}
+                      onChange={(event) => {
+                        field.handleChange(event.target.value);
+                        setStatus("idle");
+                      }}
+                      onBlur={field.handleBlur}
+                      placeholder="Full Name*"
+                      aria-label="Full Name"
+                      aria-invalid={
+                        field.state.meta.isTouched && !field.state.meta.isValid
+                      }
+                      required
+                    />
+                  )}
+                </form.Field>
               </label>
 
               <label className="field">
-                <input
-                  type="email"
-                  placeholder="Email Address*"
-                  aria-label="Email Address"
-                  required
-                />
+                <form.Field
+                  name="email"
+                  validators={{
+                    onBlur: ({ value }) => {
+                      if (!value.trim()) {
+                        return "Email address is required";
+                      }
+
+                      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                        return "Enter a valid email address";
+                      }
+
+                      return undefined;
+                    },
+                  }}
+                >
+                  {(field) => (
+                    <input
+                      type="email"
+                      name={field.name}
+                      value={field.state.value}
+                      onChange={(event) => {
+                        field.handleChange(event.target.value);
+                        setStatus("idle");
+                      }}
+                      onBlur={field.handleBlur}
+                      placeholder="Email Address*"
+                      aria-label="Email Address"
+                      aria-invalid={
+                        field.state.meta.isTouched && !field.state.meta.isValid
+                      }
+                      required
+                    />
+                  )}
+                </form.Field>
               </label>
 
               <label className="field field-message">
-                <textarea
-                  placeholder="Your Message*"
-                  aria-label="Your Message"
-                  rows={5}
-                  required
-                />
+                <form.Field
+                  name="message"
+                  validators={{
+                    onBlur: ({ value }) =>
+                      value.trim() ? undefined : "Message is required",
+                  }}
+                >
+                  {(field) => (
+                    <textarea
+                      name={field.name}
+                      value={field.state.value}
+                      onChange={(event) => {
+                        field.handleChange(event.target.value);
+                        setStatus("idle");
+                      }}
+                      onBlur={field.handleBlur}
+                      placeholder="Your Message*"
+                      aria-label="Your Message"
+                      rows={5}
+                      aria-invalid={
+                        field.state.meta.isTouched && !field.state.meta.isValid
+                      }
+                      required
+                    />
+                  )}
+                </form.Field>
               </label>
 
-              <button type="submit" className="contact-submit">
-                Send
-              </button>
+              <form.Subscribe selector={(state) => state.isSubmitting}>
+                {(isSubmitting) => (
+                  <button
+                    type="submit"
+                    className="contact-submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send"}
+                  </button>
+                )}
+              </form.Subscribe>
 
-              {sent && (
+              {status === "success" && (
                 <div
-                  className="contact-success"
+                  className="contact-status contact-success"
                   role="status"
                   aria-live="polite"
                 >
-                  Message sent successfully.
+                  Your message has been sent successfully.
+                </div>
+              )}
+
+              {status === "error" && (
+                <div
+                  className="contact-status contact-error"
+                  role="status"
+                  aria-live="polite"
+                >
+                  Message could not be sent. Please try again in a moment.
                 </div>
               )}
             </form>
