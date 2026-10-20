@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { Navbar } from "./component/Navbar";
 import { Home } from "./component/Home";
 import { WhoWeAre } from "./component/WhoWeAre";
+import { WhatWeDo } from "./component/WhatWeDo";
 import { HowItWorks } from "./component/HowItWorks";
 import { Footer } from "./component/Footer";
 
-const SECTION_IDS = ["home", "who-we-are", "how-it-works"];
+const SECTION_IDS = ["home", "who-we-are", "what-we-do", "how-it-works"];
 
 function App() {
   const [activePage, setActivePage] = useState("home");
@@ -39,6 +40,7 @@ function App() {
       <main>
         <Home onNavigate={handleNavigate} />
         <WhoWeAre />
+        <WhatWeDo />
         <HowItWorks />
       </main>
       <Footer onNavigate={handleNavigate} />

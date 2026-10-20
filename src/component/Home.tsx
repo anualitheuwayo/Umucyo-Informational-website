@@ -5,11 +5,17 @@ type HomeProps = {
 };
 
 const slides = [
-  { src: "/images/sections/hero.png", alt: "Cup of tea overlooking tea fields" },
+  {
+    src: "/images/sections/hero.png",
+    alt: "Cup of tea overlooking tea fields",
+  },
   { src: "/images/sections/image (5).png", alt: "Dairy cows on green hills" },
   { src: "/images/sections/image (6).png", alt: "Fresh tea leaves" },
   { src: "/images/sections/image (7).png", alt: "Farmers picking tea leaves" },
-  { src: "/images/sections/image (8).png", alt: "Green farmland beneath a mountain" },
+  {
+    src: "/images/sections/image (8).png",
+    alt: "Green farmland beneath a mountain",
+  },
   { src: "/images/sections/image (9).png", alt: "Cows grazing at sunrise" },
 ];
 
