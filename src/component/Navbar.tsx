@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type NavbarProps = {
   activePage: string;
-  onNavigate: (page: string) => void;
+  onNavigate: (_page: string) => void;
 };
 
 const navigationItems = [

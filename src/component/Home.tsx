@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 type HomeProps = {
-  onNavigate: (page: string) => void;
+  onNavigate: (_page: string) => void;
 };
 
 const slides = [
@@ -43,18 +43,10 @@ export function Home({ onNavigate }: HomeProps) {
         <h1>Every harvest counted. Every farmer informed.</h1>
 
         <div className="hero-buttons">
-          <button
-            type="button"
-            className="btn btn-light"
-            onClick={() => onNavigate("who-we-are")}
-          >
+          <button type="button" className="btn btn-light" onClick={() => onNavigate("who-we-are")}>
             Learn more
           </button>
-          <button
-            type="button"
-            className="btn"
-            onClick={() => onNavigate("contact")}
-          >
+          <button type="button" className="btn" onClick={() => onNavigate("contact")}>
             Contact Us
           </button>
         </div>
