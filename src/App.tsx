@@ -23,7 +23,7 @@ function App() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible) setActivePage(visible.target.id);
       },
-      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] }
     );
 
     SECTION_IDS.forEach((id) => {
