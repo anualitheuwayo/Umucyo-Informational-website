@@ -37,11 +37,6 @@ export function Team() {
         <div className="team-grid">
           {members.map((member) => (
             <div key={member.name} className="team-member">
-              <img
-                src={member.image}
-                alt={member.name}
-                className="member-photo"
-              />
               <img src={member.image} alt={member.name} className="member-photo" />
               <div className="member-name">{member.name}</div>
               <div className="member-role">{member.role}</div>

@@ -7,7 +7,7 @@ dist/
 # Vite cache
 .vite/
 
-# local env
+# environment files
 .env
 .env.*
 !.env.example

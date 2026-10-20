@@ -27,7 +27,7 @@ export function HowItWorks() {
   return (
     <section id="how-it-works" className="hiw">
       <div className="hiw-inner">
-        <h2 className="hiw-title">How it works</h2>
+        <h2 className="hiw-title">HOW IT WORKS</h2>
 
         <ol className="hiw-steps">
           {steps.map((step, index) => (

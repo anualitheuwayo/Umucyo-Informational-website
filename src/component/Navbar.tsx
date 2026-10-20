@@ -40,9 +40,7 @@ export function Navbar({ activePage, onNavigate }: NavbarProps) {
         <button
           type="button"
           className={`mobile-menu-toggle ${menuOpen ? "menu-open" : ""}`}
-          aria-label={
-            menuOpen ? "Close navigation menu" : "Open navigation menu"
-          }
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={menuOpen}
           aria-controls="main-navigation"
           onClick={() => setMenuOpen((open) => !open)}
