@@ -60,7 +60,10 @@ section[id] {
   background: #ffffff;
   color: var(--green-dark);
   font-weight: 700;
-  transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    filter 0.2s;
 }
 
 .btn:hover {
@@ -121,7 +124,9 @@ section[id] {
   height: 3px;
   border-radius: 2px;
   background: var(--green-dark);
-  transition: transform 0.25s, opacity 0.25s;
+  transition:
+    transform 0.25s,
+    opacity 0.25s;
 }
 
 .mobile-menu-toggle.menu-open span:first-child {
@@ -151,7 +156,9 @@ section[id] {
   font-weight: 600;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: color 0.2s, box-shadow 0.2s;
+  transition:
+    color 0.2s,
+    box-shadow 0.2s;
 }
 
 .nav-link:hover,
@@ -357,7 +364,9 @@ section[id] {
   width: 36px;
   height: 36px;
   color: inherit;
-  transition: transform 0.2s, opacity 0.2s;
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
 }
 
 .footer-social-links a:hover {
