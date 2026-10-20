@@ -8,6 +8,9 @@ import { FAQ } from "./component/FAQ";
 import { Footer } from "./component/Footer";
 
 const SECTION_IDS = ["home", "who-we-are", "how-it-works", "team", "faq"];
+import { Footer } from "./component/Footer";
+
+const SECTION_IDS = ["home", "who-we-are", "how-it-works"];
 
 function App() {
   const [activePage, setActivePage] = useState("home");

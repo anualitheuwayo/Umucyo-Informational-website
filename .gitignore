@@ -1,2 +1,23 @@
-node_modules
-dist
+# dependencies
+node_modules/
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+# Native directories (Continuous Native Generation)
+/android
+/ios
+# Native binaries / signing keys
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+# Debug logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+# macOS system files
+.DS_Store
