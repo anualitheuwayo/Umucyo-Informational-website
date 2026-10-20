@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { Navbar } from "./component/Navbar";
 import { Home } from "./component/Home";
 import { WhoWeAre } from "./component/WhoWeAre";
+import { HowItWorks } from "./component/HowItWorks";
+import { Team } from "./component/Team";
+import { FAQ } from "./component/FAQ";
 import { Footer } from "./component/Footer";
 
-const SECTION_IDS = ["home", "who-we-are"];
+const SECTION_IDS = ["home", "who-we-are", "how-it-works", "team", "faq"];
 
 function App() {
   const [activePage, setActivePage] = useState("home");
@@ -21,7 +24,7 @@ function App() {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible) setActivePage(visible.target.id);
       },
-      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] }
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] },
     );
 
     SECTION_IDS.forEach((id) => {
@@ -38,6 +41,9 @@ function App() {
       <main>
         <Home onNavigate={handleNavigate} />
         <WhoWeAre />
+        <HowItWorks />
+        <Team />
+        <FAQ />
       </main>
       <Footer onNavigate={handleNavigate} />
     </div>
