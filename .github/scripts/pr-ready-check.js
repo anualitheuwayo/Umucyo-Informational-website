@@ -23,7 +23,7 @@ function stripComments(text) {
 function section(body, name) {
   const lines = body.split(/\r?\n/);
   const start = lines.findIndex((line) =>
-    new RegExp(`^#{1,6}\\s+${escapeRegExp(name)}`, "i").test(line),
+    new RegExp(`^#{1,6}\\s+${escapeRegExp(name)}`, "i").test(line)
   );
   if (start === -1) return "";
   const rest = lines.slice(start + 1);
@@ -39,11 +39,9 @@ function countImages(text) {
 
 function hasVideo(text) {
   // GitHub turns uploaded videos into a bare user-attachments URL on its own line.
-  const bareAttachment =
-    /^\s*https:\/\/github\.com\/user-attachments\/assets\/[\w-]+\s*$/m;
+  const bareAttachment = /^\s*https:\/\/github\.com\/user-attachments\/assets\/[\w-]+\s*$/m;
   const videoFile = /https?:\/\/\S+\.(mp4|mov|webm)\b/i;
-  const videoHosts =
-    /https?:\/\/(www\.)?(loom\.com|youtu\.be|youtube\.com|drive\.google\.com)\//i;
+  const videoHosts = /https?:\/\/(www\.)?(loom\.com|youtu\.be|youtube\.com|drive\.google\.com)\//i;
   return (
     bareAttachment.test(text) ||
     videoFile.test(text) ||
@@ -57,8 +55,7 @@ function checkMedia(body) {
   const images = countImages(text);
   const problems = [];
   if (!hasVideo(text)) problems.push("no recording found");
-  if (images < 2)
-    problems.push(`${images} screenshot(s) found, need at least 2`);
+  if (images < 2) problems.push(`${images} screenshot(s) found, need at least 2`);
   return {
     ok: problems.length === 0,
     detail: problems.join("; ") || `recording + ${images} screenshots`,
@@ -98,8 +95,7 @@ async function getCiState({ github, owner, repo, sha }) {
   const failed = [];
   for (const run of latest.values()) {
     if (run.status !== "completed") pending.push(run.name);
-    else if (!["success", "skipped", "neutral"].includes(run.conclusion))
-      failed.push(run.name);
+    else if (!["success", "skipped", "neutral"].includes(run.conclusion)) failed.push(run.name);
   }
 
   const { data: combined } = await github.rest.repos.getCombinedStatusForRef({
@@ -126,20 +122,15 @@ async function checkCi({ github, core, owner, repo, sha, wait }) {
     state = await getCiState({ github, owner, repo, sha });
   }
 
-  if (state.failed.length > 0)
-    return { ok: false, detail: `failed: ${state.failed.join(", ")}` };
+  if (state.failed.length > 0) return { ok: false, detail: `failed: ${state.failed.join(", ")}` };
   if (state.pending.length > 0)
     return { ok: false, detail: `still running: ${state.pending.join(", ")}` };
-  if (state.total === 0)
-    return { ok: true, detail: "no other CI checks configured yet" };
+  if (state.total === 0) return { ok: true, detail: "no other CI checks configured yet" };
   return { ok: true, detail: `${state.total} check(s) passed` };
 }
 
 function setBox(body, label, checked) {
-  const pattern = new RegExp(
-    `^(\\s*[-*] \\[)[ xX](\\]\\s*(?:🤖\\s*)?${escapeRegExp(label)})`,
-    "m",
-  );
+  const pattern = new RegExp(`^(\\s*[-*] \\[)[ xX](\\]\\s*(?:🤖\\s*)?${escapeRegExp(label)})`, "m");
   return body.replace(pattern, `$1${checked ? "x" : " "}$2`);
 }
 
@@ -178,7 +169,7 @@ module.exports = async ({ github, context, core }) => {
 
   if (!/^#{1,6}\s+Ready for Review/im.test(original)) {
     core.setFailed(
-      'The "Ready for Review" section is missing from the PR description. Please use the PR template.',
+      'The "Ready for Review" section is missing from the PR description. Please use the PR template.'
     );
     return;
   }
@@ -228,7 +219,7 @@ module.exports = async ({ github, context, core }) => {
       "This PR was marked as ready for review, but these items are not done yet:\n" +
         unchecked.map((item) => `  - ${item}`).join("\n") +
         (reasons.length ? `\n\nWhat CI found:\n${reasons.join("\n")}` : "") +
-        "\n\nComplete them (or convert the PR back to draft) before requesting review.",
+        "\n\nComplete them (or convert the PR back to draft) before requesting review."
     );
     return;
   }

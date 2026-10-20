@@ -16,6 +16,11 @@ const SECTION_IDS = [
   "faq",
   "contact",
 ];
+import { WhatWeDo } from "./component/WhatWeDo";
+import { HowItWorks } from "./component/HowItWorks";
+import { Footer } from "./component/Footer";
+
+const SECTION_IDS = ["home", "who-we-are", "what-we-do", "how-it-works"];
 
 function App() {
   const [activePage, setActivePage] = useState("home");
@@ -53,6 +58,8 @@ function App() {
         <Team />
         <FAQ />
         <ContactUs />
+        <WhatWeDo />
+        <HowItWorks />
       </main>
       <Footer onNavigate={handleNavigate} />
     </div>

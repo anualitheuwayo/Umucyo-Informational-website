@@ -1,5 +1,5 @@
 type FooterProps = {
-  onNavigate: (page: string) => void;
+  onNavigate: (_page: string) => void;
 };
 
 const quickLinks = [
@@ -82,11 +82,7 @@ export function Footer({ onNavigate }: FooterProps) {
           <h3>Quick links</h3>
           <nav aria-label="Footer navigation">
             {quickLinks.map((link) => (
-              <button
-                key={link.page}
-                type="button"
-                onClick={() => onNavigate(link.page)}
-              >
+              <button key={link.page} type="button" onClick={() => onNavigate(link.page)}>
                 {link.label}
               </button>
             ))}

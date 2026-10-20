@@ -2,15 +2,7 @@ name: PR Ready Check
 
 on:
   pull_request:
-    types:
-      [
-        opened,
-        edited,
-        reopened,
-        synchronize,
-        ready_for_review,
-        converted_to_draft,
-      ]
+    types: [opened, edited, reopened, synchronize, ready_for_review, converted_to_draft]
 
 permissions:
   contents: read

@@ -20,22 +20,15 @@ export function WhoWeAre() {
               quality deductions, and track their payments. We exist to replace
               mistrust with verifiable truth, ensuring farmers get the fair
               returns they deserve.
+
             </p>
           </div>
 
-          <img
-            className="content-image"
-            src="/images/sections/mission.png"
-            alt="Our mission"
-          />
+          <img className="content-image" src="/images/sections/mission.png" alt="Our mission" />
         </div>
 
         <div className="content-grid who-row vision-row">
-          <img
-            className="content-image"
-            src="/images/sections/vision.png"
-            alt="Our vision"
-          />
+          <img className="content-image" src="/images/sections/vision.png" alt="Our vision" />
 
           <div className="content-copy">
             <h2>Our Vision</h2>
@@ -50,6 +43,7 @@ export function WhoWeAre() {
               transparency eliminates disputes, prevents unfair losses, and
               empowers farmers to build sustainable, prosperous livelihoods for
               their families.
+
             </p>
           </div>
         </div>

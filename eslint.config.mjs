@@ -44,6 +44,7 @@ export default [
           varsIgnorePattern: "^_",
           caughtErrorsIgnorePattern: "^_",
         },
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", caughtErrorsIgnorePattern: "^_" },
       ],
     },
     settings: {
