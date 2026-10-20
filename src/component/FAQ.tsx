@@ -49,6 +49,7 @@ export function FAQ() {
             alt="Cup of tea"
             className="faq-image"
           />
+          <img src="/images/sections/faq-tea.png" alt="Cup of tea" className="faq-image" />
         </div>
       </div>
     </section>
