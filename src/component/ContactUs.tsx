@@ -38,9 +38,7 @@ type FormspreeResponse = {
 };
 
 export function ContactUs() {
-  const [status, setStatus] = useState<
-    "idle" | "success" | "error" | "uncertain"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "success" | "error" | "uncertain">("idle");
 
   // Hide the success popup automatically after 3 seconds.
   useEffect(() => {
@@ -75,9 +73,7 @@ export function ContactUs() {
           body: JSON.stringify(value),
         });
 
-        const payload = (await response
-          .json()
-          .catch(() => null)) as FormspreeResponse | null;
+        const payload = (await response.json().catch(() => null)) as FormspreeResponse | null;
 
         if (!response.ok || (payload?.errors?.length ?? 0) > 0) {
           setStatus("error");
@@ -129,8 +125,7 @@ export function ContactUs() {
                 <form.Field
                   name="name"
                   validators={{
-                    onBlur: ({ value }) =>
-                      value.trim() ? undefined : "Full name is required",
+                    onBlur: ({ value }) => (value.trim() ? undefined : "Full name is required"),
                   }}
                 >
                   {(field) => (
@@ -145,9 +140,7 @@ export function ContactUs() {
                       onBlur={field.handleBlur}
                       placeholder="Full Name*"
                       aria-label="Full Name"
-                      aria-invalid={
-                        field.state.meta.isTouched && !field.state.meta.isValid
-                      }
+                      aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
                       required
                     />
                   )}
@@ -183,9 +176,7 @@ export function ContactUs() {
                       onBlur={field.handleBlur}
                       placeholder="Email Address*"
                       aria-label="Email Address"
-                      aria-invalid={
-                        field.state.meta.isTouched && !field.state.meta.isValid
-                      }
+                      aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
                       required
                     />
                   )}
@@ -196,8 +187,7 @@ export function ContactUs() {
                 <form.Field
                   name="message"
                   validators={{
-                    onBlur: ({ value }) =>
-                      value.trim() ? undefined : "Message is required",
+                    onBlur: ({ value }) => (value.trim() ? undefined : "Message is required"),
                   }}
                 >
                   {(field) => (
@@ -212,9 +202,7 @@ export function ContactUs() {
                       placeholder="Your Message*"
                       aria-label="Your Message"
                       rows={5}
-                      aria-invalid={
-                        field.state.meta.isTouched && !field.state.meta.isValid
-                      }
+                      aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
                       required
                     />
                   )}
@@ -223,32 +211,20 @@ export function ContactUs() {
 
               <form.Subscribe selector={(state) => state.isSubmitting}>
                 {(isSubmitting) => (
-                  <button
-                    type="submit"
-                    className="contact-submit"
-                    disabled={isSubmitting}
-                  >
+                  <button type="submit" className="contact-submit" disabled={isSubmitting}>
                     {isSubmitting ? "Sending..." : "Send"}
                   </button>
                 )}
               </form.Subscribe>
 
               {status === "success" && (
-                <div
-                  className="contact-status contact-success"
-                  role="status"
-                  aria-live="polite"
-                >
+                <div className="contact-status contact-success" role="status" aria-live="polite">
                   Your message has been sent successfully.
                 </div>
               )}
 
               {status === "error" && (
-                <div
-                  className="contact-status contact-error"
-                  role="status"
-                  aria-live="polite"
-                >
+                <div className="contact-status contact-error" role="status" aria-live="polite">
                   Message could not be sent. Please try again in a moment.
                 </div>
               )}
