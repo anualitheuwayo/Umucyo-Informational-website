@@ -1,52 +1,22 @@
 {
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@vitejs/plugin-react": "^6.1.2",
-    "eslint": "^10.13.0",
-    "globals": "^17.13.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^17.6.0",
-    "prettier": "^3.9.10",
-    "vite": "^8.3.4",
-    "vitest": "^5.0.5"
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "prepare": "husky"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,mjs,cjs}": [
-      "eslint",
-      "prettier --check"
-    ],
-    "*.{css,scss,json,md,mdx,yml,yaml,html}": [
-      "prettier --check"
-    ]
-  },
-  "name": "sulwe-informational-website",
+  "name": "sulwe",
+  "private": true,
   "version": "1.0.0",
-  "description": "Every PR uses the [PR template](.github/pull_request_template.md). Fill in every section.",
-  "main": "index.js",
-  "dependencies": {
-    "picomatch": "^4.0.7",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "string-argv": "^0.3.2",
-    "tinyexec": "^1.3.1",
-    "yaml": "^2.9.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akirachix/sulwe-informational-website.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/akirachix/sulwe-informational-website/issues"
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
   },
-  "homepage": "https://github.com/akirachix/sulwe-informational-website#readme"
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.11"
+  }
 }
