@@ -4,9 +4,12 @@ import { Home } from "./component/Home";
 import { WhoWeAre } from "./component/WhoWeAre";
 import { WhatWeDo } from "./component/WhatWeDo";
 import { HowItWorks } from "./component/HowItWorks";
+import { Team } from "./component/Team";
+import { FAQ } from "./component/FAQ";
+import { ContactUs } from "./component/ContactUs";
 import { Footer } from "./component/Footer";
 
-const SECTION_IDS = ["home", "who-we-are", "what-we-do", "how-it-works"];
+const SECTION_IDS = ["home", "who-we-are", "what-we-do", "how-it-works", "team", "faq", "contact"];
 
 function App() {
   const [activePage, setActivePage] = useState("home");
@@ -42,6 +45,9 @@ function App() {
         <WhoWeAre />
         <WhatWeDo />
         <HowItWorks />
+        <Team />
+        <FAQ />
+        <ContactUs />
       </main>
       <Footer onNavigate={handleNavigate} />
     </div>
