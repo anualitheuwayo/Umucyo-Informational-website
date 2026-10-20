@@ -8,7 +8,6 @@ type NavbarProps = {
 const navigationItems = [
   { label: "Home", page: "home" },
   { label: "Who We Are", page: "who-we-are" },
-  { label: "What We Do", page: "what-we-do" },
   { label: "How It Works", page: "how-it-works" },
   { label: "Team", page: "team" },
   { label: "FAQ", page: "faq" },
