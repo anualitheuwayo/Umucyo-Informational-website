@@ -6,6 +6,10 @@ import { WhatWeDo } from "./component/WhatWeDo";
 import { Footer } from "./component/Footer";
 
 const SECTION_IDS = ["home", "who-we-are", "what-we-do"];
+import { HowItWorks } from "./component/HowItWorks";
+import { Footer } from "./component/Footer";
+
+const SECTION_IDS = ["home", "who-we-are", "how-it-works"];
 
 function App() {
   const [activePage, setActivePage] = useState("home");
@@ -40,6 +44,7 @@ function App() {
         <Home onNavigate={handleNavigate} />
         <WhoWeAre />
         <WhatWeDo />
+        <HowItWorks />
       </main>
       <Footer onNavigate={handleNavigate} />
     </div>
