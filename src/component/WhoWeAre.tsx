@@ -4,7 +4,7 @@ export function WhoWeAre() {
       <div className="container">
         <h1 className="who-we-are-title">WHO WE ARE</h1>
 
-        <div className="content-grid who-row">
+        <div className="content-grid who-row mission-row">
           <div className="content-copy">
             <h2>Our Mission</h2>
 

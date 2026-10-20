@@ -464,8 +464,27 @@ section[id] {
     gap: 24px;
   }
 
+  .mission-row .content-copy,
+  .mission-row .content-image,
+  .vision-row .content-copy,
   .vision-row .content-image {
-    order: -1;
+    order: initial;
+  }
+
+  .mission-row .content-image {
+    order: 2;
+  }
+
+  .mission-row .content-copy {
+    order: 1;
+  }
+
+  .vision-row .content-image {
+    order: 1;
+  }
+
+  .vision-row .content-copy {
+    order: 2;
   }
 
   .content-image {

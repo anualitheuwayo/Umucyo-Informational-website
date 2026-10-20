@@ -16,7 +16,7 @@ const slides = [
     src: "/images/sections/image (8).png",
     alt: "Green farmland beneath a mountain",
   },
-  { src: "/images/sections/image (9).png", alt: "Cows grazing at sunrise" },
+  { src: "/images/sections/farmers.png", alt: "Farmers working together in the field" },
 ];
 
 const SLIDE_INTERVAL_MS = 5000;

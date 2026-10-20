@@ -26,6 +26,7 @@
   margin: 0 auto;
   align-items: start;
   justify-items: center;
+  justify-content: center;
 }
 
 .team-member {
