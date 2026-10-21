@@ -118,6 +118,13 @@
   min-height: 124px;
 }
 
+.field-error {
+  display: block;
+  margin-top: 6px;
+  color: #7a1f1f;
+  font-size: 0.9rem;
+}
+
 .contact-submit {
   align-self: flex-end;
   min-width: 118px;
@@ -219,4 +226,25 @@
   .contact-submit {
     align-self: stretch;
   }
+}
+
+a.contact-value {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    text-decoration-color 0.2s;
+}
+
+a.contact-value:hover {
+  color: #1b5e2d;
+  text-decoration-thickness: 2px;
+}
+
+a.contact-value:focus-visible {
+  outline: 2px solid #9ccc4a;
+  outline-offset: 3px;
+  border-radius: 4px;
 }

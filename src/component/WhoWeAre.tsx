@@ -2,7 +2,7 @@ export function WhoWeAre() {
   return (
     <section id="who-we-are" className="section">
       <div className="container">
-        <h1 className="who-we-are-title">WHO WE ARE</h1>
+        <h2 className="who-we-are-title">WHO WE ARE</h2>
 
         <div className="content-grid who-row mission-row">
           <div className="content-copy">

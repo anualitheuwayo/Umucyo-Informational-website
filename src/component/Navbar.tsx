@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type NavbarProps = {
   activePage: string;
@@ -8,6 +8,7 @@ type NavbarProps = {
 const navigationItems = [
   { label: "Home", page: "home" },
   { label: "Who We Are", page: "who-we-are" },
+  { label: "What We Do", page: "what-we-do" },
   { label: "How It Works", page: "how-it-works" },
   { label: "Team", page: "team" },
   { label: "FAQ", page: "faq" },
@@ -16,6 +17,23 @@ const navigationItems = [
 
 export function Navbar({ activePage, onNavigate }: NavbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      return undefined;
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
 
   function handleNavigation(page: string) {
     setMenuOpen(false);
@@ -34,10 +52,11 @@ export function Navbar({ activePage, onNavigate }: NavbarProps) {
             handleNavigation("home");
           }}
         >
-          <img src="/images/logo.png" alt="Sulwe logo" />
+          <img src="/images/logo.png" alt="Umucyo logo" />
         </a>
 
         <button
+          ref={menuButtonRef}
           type="button"
           className={`mobile-menu-toggle ${menuOpen ? "menu-open" : ""}`}
           aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
