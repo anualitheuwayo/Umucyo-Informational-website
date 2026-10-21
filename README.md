@@ -1,50 +1,107 @@
-# fe-sample-template
+# Umucyo Informational Website
 
-## Pull Request Rules
+## Overview
 
-Every PR uses the [PR template](.github/pull_request_template.md). Fill in every section.
+Smallholder tea and dairy farmers rely on cooperatives to collect and process their produce. Umucyo proposes a more transparent way to record delivery transactions and communicate relevant information to farmers.
+Umucyo is an informational website introducing a proposed IoT-enabled PWA(Progressive Web App) designed to improve transparency and communication between tea and dairy farmers, collection-point agents, and cooperatives in Rwanda.
 
-### 1. Open PRs as a draft
+Umucyo is an informational website introducing a proposed IoT-enabled PWA(Progressive Web App) designed to improve transparency and communication between tea and dairy farmers, collection-point agents, and cooperatives in Rwanda
 
-Always open a new PR as a **Draft**. Keep it as a draft while you are still working on it.
+The website explains Umucyo's mission, vision, proposed solution and the team behind the project. It also provides information about how the platform is intended to support traceable produce transactions, improve access to transaction records and strengthen trust between farmers and cooperatives.
 
-### 2. Add screenshots and a recording
+## Features
 
-In the **Screenshots & Recordings** section of the PR description:
+- **Home:** Introduces Umucyo and its purpose.
+- **Who We Are:** Explains the project’s mission, vision and background.
+- **How It Works:** Describes how the proposed platform connects farmers, collection-point agents, and cooperatives.
+- **Frequently Asked Questions (FAQ):** Answers common questions about Umucyo and its proposed solution.
+- **Team:** Introduces the engineers behind the project.
+- **Contact Us:** Provides contact information and ways to reach the team.
 
-- Drag and drop a **recording** of the changes (.mp4 / .mov, or a Loom / YouTube / Google Drive link).
-- Drag and drop **at least 2 screenshots** across different screens (mobile, tablet, desktop), with before and after where it applies.
+## Technology Stack
 
-### 3. Add the Figma designs
+- **TypeScript:** Provides type-safe JavaScript development for the website.
+- **CSS:** Handles styling and presentation.
+- **JavaScript:** Supports website functionality.
+- **HTML:** Provides the structure of the website.
+- **Vite:** Development server and build tool.
+- **npm:** Manages project dependencies and development scripts.
 
-In the **Figma Designs** section of the PR description:
+## Project Structure
 
-- Paste the **Figma link** (a `figma.com` URL).
-- Drag and drop **at least 1 screenshot** of the design.
+```text
+sulwe-informational-website/
+├── public/
+├── src/
+│   ├── component/
+│   │   ├── Footer.tsx
+│   │   ├── Home.tsx
+│   │   ├── HowItWorks.css
+│   │   ├── HowItWorks.tsx
+│   │   ├── Navbar.tsx
+│   │   ├── WhatWeDo.css
+│   │   ├── WhatWeDo.tsx
+│   │   └── WhoWeAre.tsx
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── style.css
+│   └── vite-env.d.ts
+├── index.html
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+├── vite.config.ts
+├── eslint.config.js
+├── eslint.config.mjs
+└── README.md
+```
 
-### 4. Only mark as "Ready for review" when everything passes
+## Live Website
 
-The **Ready for Review** checklist at the bottom of the PR description has 4 items:
+https://sulwe-informational-website.vercel.app/
 
-| Item                                                               | Who ticks it |
-| ------------------------------------------------------------------ | ------------ |
-| 🤖 All CI checks pass (build, lint, tests)                         | CI           |
-| 🤖 Recording and screenshots across different screens are attached | CI           |
-| 🤖 Figma design screenshots and link are attached                  | CI           |
-| Self-reviewed the code and tested the changes locally              | You          |
+## Getting Started
 
-Don't tick the 🤖 items yourself. CI checks them on every update and ticks or unticks them to match what it finds. Mark the PR as **Ready for review** only when all 4 are ticked.
+Follow these instructions to run the Umucyo informational website on your local machine.
 
-### How this is enforced
+### Prerequisites
 
-The [PR Ready Check](.github/workflows/pr-ready-check.yml) workflow ([script](.github/scripts/pr-ready-check.js)) runs whenever a PR is opened, edited, gets new commits, or is marked ready for review. It:
+Ensure you have the following installed:
 
-1. Waits up to 10 minutes for the PR's other CI checks to finish.
-2. Looks for the recording, screenshots, Figma link and Figma screenshot in the PR description.
-3. Ticks or unticks the 🤖 items in the PR description to match.
-4. **Draft PRs:** never fails, so you can see what's still missing.
-5. **PRs marked Ready for review:** fails if any item is unticked. The failure message and the run summary say what is missing.
+- [Node.js](https://nodejs.org/)
+- npm (included with Node.js)
+- [Git](https://git-scm.com/)
 
-To fix a failing check, add what's missing to the PR description (or fix the failing CI check and push). The check runs again when you edit the description or push. If another CI check finished after the 10-minute wait, re-run the **Ready for Review checklist** check from the PR's Checks tab.
+### Installation
 
-A PR cannot be merged into `main` or `develop` until all required checks pass.
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/akirachix/sulwe-informational-website.git
+   ```
+
+2. **Navigate to the project directory**
+
+   ```bash
+   cd sulwe-informational-website
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+4. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Open the website**
+
+   Open the local URL displayed in your terminal. By default, Vite serves the website at:
+
+   ```text
+   http://localhost:5173/
+   ```

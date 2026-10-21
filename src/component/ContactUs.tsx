@@ -37,6 +37,27 @@ type FormspreeResponse = {
   errors?: unknown[];
 };
 
+type FieldMetaLike = {
+  isTouched: boolean;
+  errors: unknown[];
+};
+
+function FieldError({ meta }: { meta: FieldMetaLike }) {
+  const message = meta.isTouched
+    ? meta.errors.find((error): error is string => typeof error === "string")
+    : undefined;
+
+  if (!message) {
+    return null;
+  }
+
+  return (
+    <span className="field-error" role="alert">
+      {message}
+    </span>
+  );
+}
+
 export function ContactUs() {
   const [status, setStatus] = useState<"idle" | "success" | "error" | "uncertain">("idle");
 
@@ -98,18 +119,43 @@ export function ContactUs() {
 
         <div className="contact-layout">
           <div className="contact-details" aria-label="Contact information">
-            {contactDetails.map((item) => (
-              <div key={item.key} className="contact-item">
-                <span className="contact-icon" aria-hidden="true">
-                  {item.icon}
-                </span>
+            {contactDetails.map((item) => {
+              const href =
+                item.key === "email"
+                  ? `mailto:${item.value}?subject=${encodeURIComponent("Message from the Umucyo website")}`
+                  : item.key === "phone"
+                    ? `https://wa.me/${item.value.replace(/\D/g, "")}`
+                    : undefined;
 
-                <div className="contact-copy">
-                  <span className="contact-label">{item.title}</span>
-                  <span className="contact-value">{item.value}</span>
+              return (
+                <div key={item.key} className="contact-item">
+                  <span className="contact-icon" aria-hidden="true">
+                    {item.icon}
+                  </span>
+
+                  <div className="contact-copy">
+                    <span className="contact-label">{item.title}</span>
+                    {href ? (
+                      <a
+                        className="contact-value"
+                        href={href}
+                        {...(item.key === "phone"
+                          ? {
+                              target: "_blank",
+                              rel: "noopener noreferrer",
+                              "aria-label": `Chat with us on WhatsApp: ${item.value}`,
+                            }
+                          : {})}
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
+                      <span className="contact-value">{item.value}</span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="contact-form-panel">
@@ -129,20 +175,23 @@ export function ContactUs() {
                   }}
                 >
                   {(field) => (
-                    <input
-                      type="text"
-                      name={field.name}
-                      value={field.state.value}
-                      onChange={(event) => {
-                        field.handleChange(event.target.value);
-                        setStatus("idle");
-                      }}
-                      onBlur={field.handleBlur}
-                      placeholder="Full Name*"
-                      aria-label="Full Name"
-                      aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
-                      required
-                    />
+                    <>
+                      <input
+                        type="text"
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(event) => {
+                          field.handleChange(event.target.value);
+                          setStatus("idle");
+                        }}
+                        onBlur={field.handleBlur}
+                        placeholder="Full Name*"
+                        aria-label="Full Name"
+                        aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
+                        required
+                      />
+                      <FieldError meta={field.state.meta} />
+                    </>
                   )}
                 </form.Field>
               </label>
@@ -165,20 +214,23 @@ export function ContactUs() {
                   }}
                 >
                   {(field) => (
-                    <input
-                      type="email"
-                      name={field.name}
-                      value={field.state.value}
-                      onChange={(event) => {
-                        field.handleChange(event.target.value);
-                        setStatus("idle");
-                      }}
-                      onBlur={field.handleBlur}
-                      placeholder="Email Address*"
-                      aria-label="Email Address"
-                      aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
-                      required
-                    />
+                    <>
+                      <input
+                        type="email"
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(event) => {
+                          field.handleChange(event.target.value);
+                          setStatus("idle");
+                        }}
+                        onBlur={field.handleBlur}
+                        placeholder="Email Address*"
+                        aria-label="Email Address"
+                        aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
+                        required
+                      />
+                      <FieldError meta={field.state.meta} />
+                    </>
                   )}
                 </form.Field>
               </label>
@@ -191,20 +243,23 @@ export function ContactUs() {
                   }}
                 >
                   {(field) => (
-                    <textarea
-                      name={field.name}
-                      value={field.state.value}
-                      onChange={(event) => {
-                        field.handleChange(event.target.value);
-                        setStatus("idle");
-                      }}
-                      onBlur={field.handleBlur}
-                      placeholder="Your Message*"
-                      aria-label="Your Message"
-                      rows={5}
-                      aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
-                      required
-                    />
+                    <>
+                      <textarea
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(event) => {
+                          field.handleChange(event.target.value);
+                          setStatus("idle");
+                        }}
+                        onBlur={field.handleBlur}
+                        placeholder="Your Message*"
+                        aria-label="Your Message"
+                        rows={5}
+                        aria-invalid={field.state.meta.isTouched && !field.state.meta.isValid}
+                        required
+                      />
+                      <FieldError meta={field.state.meta} />
+                    </>
                   )}
                 </form.Field>
               </label>
@@ -226,6 +281,13 @@ export function ContactUs() {
               {status === "error" && (
                 <div className="contact-status contact-error" role="status" aria-live="polite">
                   Message could not be sent. Please try again in a moment.
+                </div>
+              )}
+
+              {status === "uncertain" && (
+                <div className="contact-status contact-error" role="status" aria-live="polite">
+                  We could not confirm that your message was sent. Please check your connection and
+                  try again.
                 </div>
               )}
             </form>
